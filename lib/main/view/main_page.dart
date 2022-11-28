@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_app/l10n/l10n.dart';
 import 'package:my_app/main/main.dart';
+import 'package:my_app/settings/view/settings_page.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -30,10 +31,26 @@ class MainView extends StatelessWidget {
     final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.settings),
-        actions: const [
-          Icon(Icons.account_circle_outlined),
-          SizedBox(width: 20),
+        leading: GestureDetector(
+          onTap: () => Navigator.of(context).push(
+            SettingsPage.route(),
+          ),
+          child: const ColoredBox(
+            color: Colors.transparent,
+            child: Icon(Icons.settings),
+          ),
+        ),
+        actions: [
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(
+              SettingsPage.route(),
+            ),
+            child: const ColoredBox(
+              color: Colors.transparent,
+              child: Icon(Icons.account_circle_outlined),
+            ),
+          ),
+          const SizedBox(width: 20),
         ],
         title: const Center(
           child: Text(
