@@ -7,9 +7,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:my_app/l10n/l10n.dart';
 import 'package:my_app/main/main.dart';
 import 'package:my_app/settings/view/settings_page.dart';
+import 'package:my_app/utils/extensions/datetime_x.dart';
+import 'package:repository/repository.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -17,17 +20,23 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => MainPageCubit(),
+      create: (_) => MainPageCubit(context.read<Repository>()),
       child: const MainView(),
     );
   }
 }
 
-class MainView extends StatelessWidget {
+class MainView extends HookWidget {
   const MainView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final pageCubit = context.read<MainPageCubit>();
+    final pageState = context.watch<MainPageCubit>().state;
+    useMemoized(() {
+      pageCubit.init();
+    });
+
     final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
@@ -42,9 +51,7 @@ class MainView extends StatelessWidget {
         ),
         actions: [
           GestureDetector(
-            onTap: () => Navigator.of(context).push(
-              SettingsPage.route(),
-            ),
+            onTap: () => pageCubit.init(),
             child: const ColoredBox(
               color: Colors.transparent,
               child: Icon(Icons.account_circle_outlined),
@@ -62,32 +69,27 @@ class MainView extends StatelessWidget {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: const [
-            NoteTile(
-              title: 'Tytuł 1',
-              desc: 'Nie wiem, ale się dowiem',
-              date: '10:23 11.07.2022',
+      body: pageState.isLoading
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: Colors.red,
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: pageState.notes?.length ?? 0,
+                itemBuilder: (context, index) {
+                  final note = pageState.notes!.elementAt(index);
+                  return NoteTile(
+                    title: note.title,
+                    desc: note.body,
+                    date: note.date,
+                  );
+                },
+              ),
             ),
-            NoteTile(
-              title: 'Jak poprawnie tworzyć design',
-              desc:
-                  '''Spójne marginesy, grające ze sobą kolory, ekrany powinno robić się na frame’ach a  cos dalej do overfloww''',
-              date: '10:23 11.07.2022',
-              color: Color(0xffF7E782),
-            ),
-            NoteTile(
-              title: 'Kocham gotować, dlaczego warto',
-              desc: 'Kochanie gotowania, dlaczego warto',
-              date: '10:23 11.07.2022',
-              color: Color(0xffFFDBCF),
-            ),
-          ],
-        ),
-      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xffD3E7F7),
         onPressed: () => () {},
@@ -112,7 +114,7 @@ class NoteTile extends StatelessWidget {
 
   final String title;
   final String desc;
-  final String date;
+  final DateTime date;
   final Color? color;
 
   @override
@@ -156,7 +158,7 @@ class NoteTile extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              date,
+              date.toNoteDate,
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 10,

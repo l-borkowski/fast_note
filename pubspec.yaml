@@ -8,14 +8,21 @@ environment:
   flutter: 3.3.7
 
 dependencies:
+  api:
+    path: packages/api
   bloc: ^8.1.0
+  dio: ^4.0.6
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
+  flutter_hooks: ^0.18.5+1
   flutter_localizations:
     sdk: flutter
   google_fonts: ^3.0.1
   intl: ^0.17.0
+  repository:
+    path: packages/repository
 
 dev_dependencies:
   bloc_test: ^9.1.0
