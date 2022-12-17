@@ -54,7 +54,10 @@ class SettingsView extends StatelessWidget {
                 children: [
                   const Icon(Icons.dark_mode),
                   const SizedBox(width: 15),
-                  const Text('Ciemny motyw'),
+                  const Text(
+                    'Ciemny motyw',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   const Spacer(),
                   Switch(
                     value: settingsState.darkMode,
