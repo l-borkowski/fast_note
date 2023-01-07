@@ -276,11 +276,11 @@ class _AccountPageState extends State<AccountPage> {
                               Container(
                                 width: double.infinity,
                                 padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                                height: 280,
+                                height: 360,
                                 child: Column(
                                   children: [
                                     Text(
-                                      "Zmien imię",
+                                      "Zmien hasło",
                                       textAlign: TextAlign.center,
                                       style:
                                           TextStyle(fontSize: 18, height: 1.5),
@@ -320,6 +320,24 @@ class _AccountPageState extends State<AccountPage> {
                                                 BorderRadius.circular(15.0),
                                           ),
                                           hintText: 'Podaj nowe hasło',
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    SizedBox(
+                                      width: double.infinity,
+                                      height: 50,
+                                      child: TextField(
+                                        controller: passwordController,
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: Color.fromARGB(
+                                              255, 250, 250, 250),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                          ),
+                                          hintText: 'Powtórz nowe hasło',
                                         ),
                                       ),
                                     ),
