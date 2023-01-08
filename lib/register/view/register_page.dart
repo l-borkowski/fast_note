@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+TextEditingController name = TextEditingController();
+TextEditingController lastName = TextEditingController();
+TextEditingController email = TextEditingController();
+TextEditingController password = TextEditingController();
+TextEditingController password2 = TextEditingController();
+
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
@@ -54,6 +60,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 fillColor: Color.fromARGB(255, 250, 250, 250),
                 hintText: 'Podaj email',
               ),
+              controller: email,
             ),
             const SizedBox(height: 20),
             Row(
@@ -75,7 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 150,
                       child: TextField(
                         decoration: InputDecoration(
@@ -83,6 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           fillColor: Color.fromARGB(255, 250, 250, 250),
                           hintText: 'Podaj imię',
                         ),
+                        controller: name,
                       ),
                     ),
                   ],
@@ -105,7 +113,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 150,
                       child: TextField(
                         decoration: InputDecoration(
@@ -113,6 +121,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           fillColor: Color.fromARGB(255, 250, 250, 250),
                           hintText: 'Podaj nazwisko',
                         ),
+                        controller: lastName,
                       ),
                     ),
                   ],
@@ -139,6 +148,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 fillColor: Color.fromARGB(255, 250, 250, 250),
                 hintText: 'Podaj hasło',
               ),
+              controller: password,
             ),
             const SizedBox(height: 20),
             Align(
@@ -158,8 +168,9 @@ class _RegisterPageState extends State<RegisterPage> {
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Color.fromARGB(255, 250, 250, 250),
-                hintText: 'Podaj ponownie hasło',
+                hintText: 'Powtórz hasło',
               ),
+              controller: password2,
             ),
             const SizedBox(height: 40),
             SizedBox(
