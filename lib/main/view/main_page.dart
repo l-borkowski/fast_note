@@ -8,12 +8,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:my_app/account/view/account_page.dart';
 import 'package:my_app/l10n/l10n.dart';
 import 'package:my_app/main/main.dart';
 import 'package:my_app/settings/view/settings_page.dart';
 import 'package:my_app/account/view/account_page.dart';
 import 'package:my_app/register/view/register_page.dart';
 import 'package:my_app/noteWrite/view/noteWrite_page.dart';
+import 'package:my_app/settings/view/settings_page.dart';
 import 'package:my_app/utils/extensions/datetime_x.dart';
 import 'package:repository/repository.dart';
 
