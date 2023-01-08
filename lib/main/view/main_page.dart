@@ -45,7 +45,7 @@ class MainView extends HookWidget {
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () => Navigator.of(context).push(
-            RegisterPage.route(),
+            SettingsPage.route(),
           ),
           child: const ColoredBox(
             color: Colors.transparent,
