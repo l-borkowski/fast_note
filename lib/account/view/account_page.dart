@@ -293,6 +293,7 @@ class _AccountPageState extends State<AccountPage> {
                                       width: double.infinity,
                                       height: 50,
                                       child: TextField(
+                                        obscureText: true,
                                         decoration: InputDecoration(
                                           filled: true,
                                           fillColor: Color.fromARGB(
@@ -310,6 +311,7 @@ class _AccountPageState extends State<AccountPage> {
                                       width: double.infinity,
                                       height: 50,
                                       child: TextField(
+                                        obscureText: true,
                                         controller: passwordController,
                                         decoration: InputDecoration(
                                           filled: true,
@@ -328,6 +330,7 @@ class _AccountPageState extends State<AccountPage> {
                                       width: double.infinity,
                                       height: 50,
                                       child: TextField(
+                                        obscureText: true,
                                         controller: passwordController,
                                         decoration: InputDecoration(
                                           filled: true,
