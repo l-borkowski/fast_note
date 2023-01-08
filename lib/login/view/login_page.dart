@@ -74,6 +74,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             TextField(
+              obscureText: true,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Color.fromARGB(255, 250, 250, 250),
