@@ -133,6 +133,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
             TextField(
+              obscureText: true,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Color.fromARGB(255, 250, 250, 250),
@@ -153,6 +154,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
             TextField(
+              obscureText: true,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Color.fromARGB(255, 250, 250, 250),
