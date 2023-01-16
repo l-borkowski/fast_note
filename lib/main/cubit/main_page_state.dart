@@ -3,19 +3,20 @@ part of 'main_page_cubit.dart';
 
 class MainPageState extends Equatable {
   const MainPageState({
-    this.notes,
+    required this.notes,
     required this.isLoading,
   });
 
   factory MainPageState.initial() => const MainPageState(
         isLoading: false,
+        notes: [],
       );
 
-  final List<Note>? notes;
+  final List<Note> notes;
   final bool isLoading;
 
   @override
-  List<Object?> get props => [notes];
+  List<Object?> get props => [notes, isLoading];
 
   MainPageState copyWith({
     List<Note>? notes,

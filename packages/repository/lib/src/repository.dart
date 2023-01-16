@@ -15,10 +15,107 @@ class Repository {
   ///
   final DataSource dataSource;
 
-  /// Gets user data.
-  Future<List<Note>> getNotes(int id) async {
+  ///
+  Future<void> register(
+    String login,
+    String password,
+    String firstNamne,
+    String password2,
+    String lastName,
+  ) async {
     try {
-      final test = <Note>[
+      await dataSource.register(
+        login,
+        password,
+        firstNamne,
+        password2,
+        lastName,
+      );
+
+      return;
+    } on Exception {
+      rethrow;
+    } catch (_) {
+      throw AuthException();
+    }
+  }
+
+  ///
+  Future<void> login(String login, String password) async {
+    try {
+      await dataSource.login(login, password);
+
+      return;
+    } on Exception {
+      rethrow;
+    } catch (_) {
+      throw AuthException();
+    }
+  }
+
+  Future<User> getUser() async {
+    try {
+      final response = await dataSource.getUser();
+
+      final user = User.fromJson(response);
+
+      return user;
+    } on Exception {
+      rethrow;
+    } catch (_) {
+      throw AuthException();
+    }
+  }
+
+  ///
+  Future<Note> getNote(int id) async {
+    try {
+      final repsonse = await dataSource.getNote(id);
+
+      final note = Note.fromJson(repsonse);
+
+      return note;
+    } on Exception {
+      rethrow;
+    } catch (_) {
+      throw AuthException();
+    }
+  }
+
+  ///
+  Future<void> saveNote(Note note) async {
+    try {
+      final noteJson = note.toJson();
+
+      await dataSource.saveNote(noteJson);
+
+      return;
+    } on Exception {
+      rethrow;
+    } catch (_) {
+      throw AuthException();
+    }
+  }
+
+  ///
+  Future<void> editNote(Note note, int id) async {
+    try {
+      final noteJson = note.toJson();
+
+      await dataSource.editNote(noteJson, id);
+
+      return;
+    } on Exception {
+      rethrow;
+    } catch (_) {
+      throw AuthException();
+    }
+  }
+
+  /// Gets user data.
+  Future<List<Note>> getNotes() async {
+    try {
+      /* final test = <Note>[
         Note(
           id: 1,
           title: 'Tytuł 1',
@@ -64,11 +161,14 @@ class Repository {
         ),
       ];
 
-      return test;
-      /* final response = await dataSource.getNotes(id);
-      final note = Note.fromJson(response);
+      return test; */
+      final response = await dataSource.getNotes();
+      final notes = <Note>[];
+      for (final element in response) {
+        notes.add(Note.fromJson(element as JsonMap));
+      }
 
-      return 'user'; */
+      return notes;
     } on Exception {
       rethrow;
     } catch (_) {

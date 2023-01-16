@@ -13,17 +13,24 @@ class MainPageCubit extends Cubit<MainPageState> {
 
   final Repository _repository;
 
-  Future<void> init() async {
-    emit(state.copyWith(isLoading: true));
-    final notes = await _repository.getNotes(3);
-    await Future<void>.delayed(const Duration(seconds: 3));
-    log('xd');
+  Future<void> getNotes() async {
+    try {
+      emit(state.copyWith(isLoading: true));
+      final notes = await _repository.getNotes();
 
-    emit(
-      state.copyWith(
-        notes: notes,
-        isLoading: false,
-      ),
-    );
+      emit(
+        state.copyWith(
+          notes: notes.reversed.toList(),
+          isLoading: false,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          notes: [],
+          isLoading: false,
+        ),
+      );
+    }
   }
 }

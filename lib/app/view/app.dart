@@ -8,7 +8,9 @@
 import 'package:api/api.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_app/account/cubit/account_cubit.dart';
 import 'package:my_app/l10n/l10n.dart';
 import 'package:my_app/main/main.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +23,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     final dio = Dio(
       BaseOptions(
-        baseUrl: 'kiedys cos tu bedzie',
+        baseUrl: 'https://note-api-app.azurewebsites.net/api/',
       ),
     );
 
@@ -29,18 +31,27 @@ class App extends StatelessWidget {
     final repository = Repository(dataSource);
 
     final textTheme = Theme.of(context).textTheme;
-    return MaterialApp(
-      theme: ThemeData(
-        useMaterial3: true,
-        textTheme: GoogleFonts.poppinsTextTheme(textTheme),
+    return RepositoryProvider(
+      create: (context) => repository,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<AccountCubit>(
+            create: (context) => AccountCubit(repository),
+          ),
+          BlocProvider<MainPageCubit>(
+            create: (context) => MainPageCubit(repository),
+          ),
+        ],
+        child: MaterialApp(
+          theme: ThemeData(
+            useMaterial3: true,
+            textTheme: GoogleFonts.poppinsTextTheme(textTheme),
+          ),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const MainPage(),
+        ),
       ),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: MultiProvider(providers: [
-        Provider<Repository>(
-          create: (context) => repository,
-        )
-      ], child: const MainPage()),
     );
   }
 }

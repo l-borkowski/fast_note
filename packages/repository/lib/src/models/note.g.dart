@@ -8,16 +8,14 @@ part of 'note.dart';
 
 Note _$NoteFromJson(Map<String, dynamic> json) => Note(
       id: json['id'] as int,
-      title: json['title'] as String,
-      body: json['body'] as String,
-      date: DateTime.parse(json['date'] as String),
+      title: json['noteTitle'] as String,
+      body: json['noteBody'] as String,
       color: json['color'] as int,
     );
 
 Map<String, dynamic> _$NoteToJson(Note instance) => <String, dynamic>{
       'id': instance.id,
-      'title': instance.title,
-      'body': instance.body,
-      'date': instance.date.toIso8601String(),
+      'noteTitle': instance.title,
+      'noteBody': instance.body,
       'color': instance.color,
     };
